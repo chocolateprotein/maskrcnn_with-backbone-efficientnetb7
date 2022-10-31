@@ -5,6 +5,8 @@ import mrcnn.visualize
 import cv2
 import os
 
+
+
 # load the class label names from disk, one label per line
 # CLASS_NAMES = open("coco_labels.txt").read().strip().split("\n")
 
@@ -25,7 +27,9 @@ class SimpleConfig(mrcnn.config.Config):
 # This step builds the Keras model architecture.
 model = mrcnn.model.MaskRCNN(mode="inference", 
                              config=SimpleConfig(),
-                             model_dir=os.getcwd())
+                             model_dir=os.getcwd(),
+                             pretrained = True,
+                             model_name ="EfficientNet-B7")
 
 # Load the weights into the model.
 model.load_weights(filepath="mask_rcnn_coco.h5", 
@@ -35,8 +39,9 @@ model.load_weights(filepath="mask_rcnn_coco.h5",
 image = cv2.imread("test.jpg")
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
+
 # Perform a forward pass of the network to obtain the results
-r = model.detect([image])
+r = model.detect([image], verbose=1)
 
 # Get the results for the first image.
 r = r[0]

@@ -52,7 +52,7 @@ class Config(object):
     # You can also provide a callable that should have the signature
     # of model.resnet_graph. If you do so, you need to supply a callable
     # to COMPUTE_BACKBONE_SHAPE as well
-    BACKBONE = "eff"
+    BACKBONE = "efficientnet"
 
     # Only useful if you supply a callable to BACKBONE. Should compute
     # the shape of each layer of the FPN Pyramid.
@@ -70,7 +70,7 @@ class Config(object):
     TOP_DOWN_PYRAMID_SIZE = 256
 
     # Number of classification classes (including background)
-    NUM_CLASSES = 1  # Override in sub-classes
+    NUM_CLASSES = 1 + 1  # Override in sub-classes
 
     # Length of square anchor side in pixels
     RPN_ANCHOR_SCALES = (32, 64, 128, 256, 512)
@@ -124,13 +124,13 @@ class Config(object):
     #         size IMAGE_MIN_DIM x IMAGE_MIN_DIM. Can be used in training only.
     #         IMAGE_MAX_DIM is not used in this mode.
     IMAGE_RESIZE_MODE = "square"
-    IMAGE_MIN_DIM = 800
-    IMAGE_MAX_DIM = 1024
+    IMAGE_MIN_DIM = 576
+    IMAGE_MAX_DIM = 576
     # Minimum scaling ratio. Checked after MIN_IMAGE_DIM and can force further
     # up scaling. For example, if set to 2 then images are scaled up to double
     # the width and height, or more, even if MIN_IMAGE_DIM doesn't require it.
     # However, in 'square' mode, it can be overruled by IMAGE_MAX_DIM.
-    IMAGE_MIN_SCALE = 0
+    IMAGE_MIN_SCALE = 2.0
     # Number of color channels per image. RGB = 3, grayscale = 1, RGB-D = 4
     # Changing this requires other changes in the code. See the WIKI for more
     # details: https://github.com/matterport/Mask_RCNN/wiki
